@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
@@ -10,12 +11,12 @@ app.use(express.json());
 
 // ===== PostgreSQL Connection =====
 const pool = new Pool({
-  host: process.env.PGHOST || "dpg-d28m5hvdiees73f3fko0-a.singapore-postgres.render.com",
-  user: process.env.PGUSER || "broodwar",
-  password: process.env.PGPASSWORD || "FpjuxkqC64fFf0ZoAqjc3QT6pe1enXZ6",
-  database: process.env.PGDATABASE || "flutter_i66q",
-  port: process.env.PGPORT || 5432,
-  ssl: { rejectUnauthorized: false } // จำเป็นสำหรับ Render
+  host: process.env.PGHOST,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  port: process.env.PGPORT,
+  ssl: { rejectUnauthorized: false }
 });
 
 // ===== Test API =====
@@ -23,7 +24,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Render PostgreSQL API is running!" });
 });
 
-// ===== GET Users =====
+// ===== GET Rooms =====
 app.get("/rooms", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM rooms ORDER BY id ASC");
@@ -33,6 +34,8 @@ app.get("/rooms", async (req, res) => {
     res.status(500).json({ error: "Database query failed" });
   }
 });
+
+
 
 // ===== Start Server =====
 app.listen(PORT, () => {
