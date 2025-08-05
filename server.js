@@ -35,7 +35,7 @@ app.get("/rooms", async (req, res) => {
   }
 });
 
-app.get("api/rooms", async (req, res) => {
+app.get("/api/rooms", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM rooms ORDER BY id ASC");
     res.json(result.rows);
