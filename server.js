@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 // ===== GET Users =====
-app.get("/users", async (req, res) => {
+app.get("/rooms", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM rooms ORDER BY id ASC");
     res.json(result.rows);
