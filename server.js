@@ -35,6 +35,16 @@ app.get("/rooms", async (req, res) => {
   }
 });
 
+app.get("api/rooms", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM rooms ORDER BY id ASC");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database query failed" });
+  }
+});
+
 
 
 // ===== Start Server =====
